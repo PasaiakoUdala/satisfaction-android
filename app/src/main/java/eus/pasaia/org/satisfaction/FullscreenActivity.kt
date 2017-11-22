@@ -1,5 +1,7 @@
 package eus.pasaia.org.satisfaction
 
+import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +12,11 @@ import android.widget.ImageButton
 import android.widget.Toast
 import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.content.Intent
-
+import android.preference.PreferenceManager
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import android.widget.TextView
+import org.w3c.dom.Text
 
 
 class FullscreenActivity : AppCompatActivity() {
@@ -41,6 +47,17 @@ class FullscreenActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_fullscreen)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+
+        val SP = PreferenceManager.getDefaultSharedPreferences(baseContext)
+        val strKokalekua = SP.getString("kokalekua", "NA")
+        val strServer_url = SP.getString("server_url", "NA")
+        val strGaldera = SP.getString("example_text", "NA")
+
+        var txt = findViewById<TextView>(R.id.txtGaldera) as TextView
+        txt.setText(strGaldera)
+
 
         var btnOk = findViewById<ImageButton> (R.id.imgOk) as ImageButton
         btnOk.setOnClickListener {
