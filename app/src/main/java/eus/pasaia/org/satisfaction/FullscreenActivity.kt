@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import android.content.Intent
+
+
 
 class FullscreenActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
@@ -40,6 +45,11 @@ class FullscreenActivity : AppCompatActivity() {
         var btnOk = findViewById<ImageButton> (R.id.imgOk) as ImageButton
         btnOk.setOnClickListener {
             Log.d("IKER", "Xieeee")
+        }
+
+        var btnSettings = findViewById<Button> (R.id.cmdSettings) as Button
+        btnSettings.setOnClickListener {
+            startActivity(Intent(this@FullscreenActivity, SettingsActivity::class.java))
         }
 
     }
