@@ -14,13 +14,22 @@
         android:title="@string/pref_title_display_name" />
 
     <EditTextPreference
-        android:defaultValue="@string/pref_default_display_name"
+        android:defaultValue="@string/pref_default_zerbitzari_url"
         android:inputType="textCapWords"
         android:key="server_url"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_server_url" />
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_kokalekua"
+        android:inputType="textCapWords"
+        android:key="kokalekua"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_kokalekua" />
 
 
 
