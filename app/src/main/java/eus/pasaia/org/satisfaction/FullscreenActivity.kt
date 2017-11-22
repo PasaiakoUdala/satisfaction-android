@@ -17,6 +17,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.widget.TextView
 import org.w3c.dom.Text
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class FullscreenActivity : AppCompatActivity() {
@@ -58,6 +60,11 @@ class FullscreenActivity : AppCompatActivity() {
         var txt = findViewById<TextView>(R.id.txtGaldera) as TextView
         txt.setText(strGaldera)
 
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl(Service.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
         var btnOk = findViewById<ImageButton> (R.id.imgOk) as ImageButton
         btnOk.setOnClickListener {
