@@ -1,33 +1,35 @@
 <resources>
-    <string name="app_name">satisfaction</string>
+  <string name="app_name">satisfaction</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_settings">Aukerak</string>
+  <string name="dummy_button">Dummy Button</string>
+  <string name="dummy_content">DUMMY\nCONTENT</string>
+  <string name="title_activity_settings">Aukerak</string>
 
-    <!-- Strings related to Settings -->
+  <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+  <!-- Example General settings -->
+  <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
+  <string name="pref_title_social_recommendations">Enable social recommendations</string>
+  <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
     </string>
 
-    <string name="pref_title_galdera_eus">Galdera Textua</string>
-    <string name="pref_default_galdera_eus">Zer moduzkoa izanda gaur jaso duzun arreta?</string>
+  <string name="pref_title_galdera_eus">Galdera Textua</string>
+  <string name="pref_default_galdera_eus">Zer moduzkoa izanda gaur jaso duzun arreta?</string>
 
-    <string name="pref_title_galdera_es">Texto pregunta</string>
-    <string name="pref_default_galdera_es">¿Qué tal ha sido la atención que has revibido hoy?</string>
+  <string name="pref_title_galdera_es">Texto pregunta</string>
+  <string name="pref_default_galdera_es">¿Qué tal ha sido la atención que has revibido hoy?</string>
 
-    <string name="pref_title_server_url">Zerbitzari url</string>
-    <string name="pref_default_zerbitzari_url">http://localhost:3000/api/satisfaction</string>
+  <string name="pref_title_server_url">Zerbitzari url</string>
+  <string name="pref_default_zerbitzari_url">http://localhost:3000/api/satisfaction</string>
 
-    <string name="pref_title_kokalekua">Kokalekua</string>
-    <string name="pref_default_kokalekua">HAZ-Trintxerpe</string>
+  <string name="pref_title_kokalekua">Kokalekua</string>
+  <string name="pref_default_kokalekua">HAZ-Trintxerpe</string>
 
 
-    <string name="pref_title_saila">Saila</string>
-    <string name="pref_default_saila">Saila</string>
+  <string name="pref_title_saila">Saila</string>
+  <string name="pref_default_saila">Saila</string>
+
+  <string name="title_success">Ongi</string>
 </resources>

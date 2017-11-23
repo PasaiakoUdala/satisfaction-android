@@ -17,9 +17,12 @@ public class Satisfaction {
   @SerializedName("saila")
   @Expose
   private String saila;
-  @SerializedName("galdera")
+  @SerializedName("galderaeus")
   @Expose
-  private String galdera;
+  private String galderaeus;
+  @SerializedName("galderaes")
+  @Expose
+  private String galderaes;
 
   public Integer getId() {
     return id;
@@ -53,18 +56,26 @@ public class Satisfaction {
     this.saila = saila;
   }
 
-  public String getGaldera() {
-    return galdera;
+  public String getGalderaeus() {
+    return galderaeus;
   }
 
-  public void setGaldera(String galdera) {
-    this.galdera = galdera;
+  public void setGalderaeus(String galderaeus) {
+    this.galderaeus = galderaeus;
+  }
+
+  public String getGalderaes() {
+    return galderaes;
+  }
+
+  public void setGalderaes(String galderaes) {
+    this.galderaes = galderaes;
   }
 
   @Override
   public String toString() {
     return "Satisfaction{" +
-      "galdera='" + galdera + '\'' +
+      "galdera='" + galderaeus + '\'' +
       ", emaitza=" + emaitza +
       ", id=" + id +
       '}';

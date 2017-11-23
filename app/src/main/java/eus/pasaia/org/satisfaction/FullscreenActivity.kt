@@ -16,6 +16,9 @@ import eus.pasaia.org.satisfaction.data.model.remote.ApiUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.support.v4.content.ContextCompat.startActivity
+
+
 
 
 class FullscreenActivity : AppCompatActivity() {
@@ -64,6 +67,8 @@ class FullscreenActivity : AppCompatActivity() {
 
     var mAPIService = ApiUtils.getAPIService()
 
+
+
     fun sendSatisfaction(galderaeus: String, galderaes: String, emaitza: Int, saila: String, kokalekua: String) {
       if (mAPIService != null) {
         mAPIService.saveSatisfaction(galderaeus, galderaes, emaitza, saila, kokalekua).enqueue(object : Callback<Satisfaction> {
@@ -71,6 +76,8 @@ class FullscreenActivity : AppCompatActivity() {
 
             if (response.isSuccessful()) {
               Log.i("IKER", "post submitted to API." + response.body().toString())
+              val mainIntent = Intent(this@FullscreenActivity, SuccessActivity::class.java)
+              startActivity(mainIntent)
             }
 
           }
@@ -85,6 +92,18 @@ class FullscreenActivity : AppCompatActivity() {
     var btnOk = findViewById<ImageButton>(R.id.imgOk) as ImageButton
     btnOk.setOnClickListener {
       sendSatisfaction(strGalderaeus, strGalderaes, 1, strSaila, strKokalekua)
+      Log.d("IKER", "Xieeee")
+    }
+
+    var btnNeutral = findViewById<ImageButton>(R.id.imgNeutral) as ImageButton
+    btnNeutral.setOnClickListener {
+      sendSatisfaction(strGalderaeus, strGalderaes, 0, strSaila, strKokalekua)
+      Log.d("IKER", "Xieeee")
+    }
+
+    var btnBad = findViewById<ImageButton>(R.id.imgBad) as ImageButton
+    btnBad.setOnClickListener {
+      sendSatisfaction(strGalderaeus, strGalderaes, -1, strSaila, strKokalekua)
       Log.d("IKER", "Xieeee")
     }
 
