@@ -23,4 +23,8 @@
 
     <string name="pref_title_kokalekua">Kokalekua</string>
     <string name="pref_default_kokalekua">HAZ-Trintxerpe</string>
+
+
+    <string name="pref_title_saila">Saila</string>
+    <string name="pref_default_saila">Saila</string>
 </resources>

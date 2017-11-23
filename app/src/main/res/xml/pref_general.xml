@@ -15,7 +15,6 @@
 
     <EditTextPreference
         android:defaultValue="@string/pref_default_zerbitzari_url"
-        android:inputType="textCapWords"
         android:key="server_url"
         android:maxLines="1"
         android:selectAllOnFocus="true"
@@ -30,6 +29,15 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_kokalekua" />
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_saila"
+        android:inputType="textCapWords"
+        android:key="saila"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_saila" />
 
 
 

@@ -16,134 +16,160 @@ import android.preference.PreferenceManager
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.widget.TextView
+import eus.pasaia.org.satisfaction.data.model.Satisfaction
+import eus.pasaia.org.satisfaction.data.model.remote.ApiUtils
 import org.w3c.dom.Text
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import eus.pasaia.org.satisfaction.data.model.remote.APIService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class FullscreenActivity : AppCompatActivity() {
-    private val mHideHandler = Handler()
-    private val mHidePart2Runnable = Runnable {
+  private val mHideHandler = Handler()
+  private val mHidePart2Runnable = Runnable {
 
+  }
+  private val mShowPart2Runnable = Runnable {
+    // Delayed display of UI elements
+    supportActionBar?.show()
+  }
+  private var mVisible: Boolean = false
+  private val mHideRunnable = Runnable { hide() }
+  private val mAPIService: APIService? = null
+  /**
+   * Touch listener to use for in-layout UI controls to delay hiding the
+   * system UI. This is to prevent the jarring behavior of controls going away
+   * while interacting with activity UI.
+   */
+  private val mDelayHideTouchListener = View.OnTouchListener { _, _ ->
+    if (AUTO_HIDE) {
+      delayedHide(AUTO_HIDE_DELAY_MILLIS)
     }
-    private val mShowPart2Runnable = Runnable {
-        // Delayed display of UI elements
-        supportActionBar?.show()
-    }
-    private var mVisible: Boolean = false
-    private val mHideRunnable = Runnable { hide() }
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private val mDelayHideTouchListener = View.OnTouchListener { _, _ ->
-        if (AUTO_HIDE) {
-            delayedHide(AUTO_HIDE_DELAY_MILLIS)
-        }
-        false
-    }
+    false
+  }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_fullscreen)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    setContentView(R.layout.activity_fullscreen)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+    PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
 
-        val SP = PreferenceManager.getDefaultSharedPreferences(baseContext)
-        val strKokalekua = SP.getString("kokalekua", "NA")
-        val strServer_url = SP.getString("server_url", "NA")
-        val strGaldera = SP.getString("example_text", "NA")
+    val SP = PreferenceManager.getDefaultSharedPreferences(baseContext)
+    val strKokalekua = SP.getString("kokalekua", "NA")
+    val strServer_url = SP.getString("server_url", "NA")
+    val strGaldera = SP.getString("example_text", "NA")
 
-        var txt = findViewById<TextView>(R.id.txtGaldera) as TextView
-        txt.setText(strGaldera)
+    var txt = findViewById<TextView>(R.id.txtGaldera) as TextView
+    txt.setText(strGaldera)
 
+    var mAPIService = ApiUtils.getAPIService()
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl(Service.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+    fun sendSatisfaction(galdera: String, emaitza: Int, saila: String, kokalekua: String) {
+      if (mAPIService != null) {
+        mAPIService.saveSatisfaction(galdera, emaitza, saila, kokalekua).enqueue(object : Callback<Satisfaction> {
+          override fun onResponse(call: Call<Satisfaction>, response: Response<Satisfaction>) {
 
-        var btnOk = findViewById<ImageButton> (R.id.imgOk) as ImageButton
-        btnOk.setOnClickListener {
-            Log.d("IKER", "Xieeee")
-        }
+            if (response.isSuccessful()) {
 
-        var btnSettings = findViewById<Button> (R.id.cmdSettings) as Button
-        btnSettings.setOnClickListener {
-            startActivity(Intent(this@FullscreenActivity, SettingsActivity::class.java))
-        }
+              Log.i("IKER", "post submitted to API." + response.body().toString())
+            }
 
-    }
+          }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100)
+          override fun onFailure(call: Call<Satisfaction>, t: Throwable) {
+            Log.e("IKER", "Unable to submit post to API.")
+          }
+        })
+      }
     }
 
-    private fun toggle() {
-        if (mVisible) {
-            hide()
-        } else {
-            show()
-        }
+    fun showResponse(response: String) {
+      Log.d("IKER", response)
+    }
+    var btnOk = findViewById<ImageButton>(R.id.imgOk) as ImageButton
+    btnOk.setOnClickListener {
+      sendSatisfaction("AA",2,"KK","kk")
+      Log.d("IKER", "Xieeee")
     }
 
-    private fun hide() {
-        // Hide UI first
-        supportActionBar?.hide()
+    var btnSettings = findViewById<Button>(R.id.cmdSettings) as Button
+    btnSettings.setOnClickListener {
+      startActivity(Intent(this@FullscreenActivity, SettingsActivity::class.java))
+    }
+
+  }
+
+  override fun onPostCreate(savedInstanceState: Bundle?) {
+    super.onPostCreate(savedInstanceState)
+
+    // Trigger the initial hide() shortly after the activity has been
+    // created, to briefly hint to the user that UI controls
+    // are available.
+    delayedHide(100)
+  }
+
+  private fun toggle() {
+    if (mVisible) {
+      hide()
+    } else {
+      show()
+    }
+  }
+
+  private fun hide() {
+    // Hide UI first
+    supportActionBar?.hide()
 //        fullscreen_content_controls.visibility = View.GONE
-        mVisible = false
+    mVisible = false
 
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable)
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
-    }
+    // Schedule a runnable to remove the status and navigation bar after a delay
+    mHideHandler.removeCallbacks(mShowPart2Runnable)
+    mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY.toLong())
+  }
 
-    private fun show() {
-        // Show the system bar
+  private fun show() {
+    // Show the system bar
 //        fullscreen_content.systemUiVisibility =
 //                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
 //                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        mVisible = true
+    mVisible = true
 
-        // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable)
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY.toLong())
-    }
+    // Schedule a runnable to display UI elements after a delay
+    mHideHandler.removeCallbacks(mHidePart2Runnable)
+    mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY.toLong())
+  }
+
+  /**
+   * Schedules a call to hide() in [delayMillis], canceling any
+   * previously scheduled calls.
+   */
+  private fun delayedHide(delayMillis: Int) {
+    mHideHandler.removeCallbacks(mHideRunnable)
+    mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
+  }
+
+  companion object {
+    /**
+     * Whether or not the system UI should be auto-hidden after
+     * [AUTO_HIDE_DELAY_MILLIS] milliseconds.
+     */
+    private val AUTO_HIDE = true
 
     /**
-     * Schedules a call to hide() in [delayMillis], canceling any
-     * previously scheduled calls.
+     * If [AUTO_HIDE] is set, the number of milliseconds to wait after
+     * user interaction before hiding the system UI.
      */
-    private fun delayedHide(delayMillis: Int) {
-        mHideHandler.removeCallbacks(mHideRunnable)
-        mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
-    }
+    private val AUTO_HIDE_DELAY_MILLIS = 3000
 
-    companion object {
-        /**
-         * Whether or not the system UI should be auto-hidden after
-         * [AUTO_HIDE_DELAY_MILLIS] milliseconds.
-         */
-        private val AUTO_HIDE = true
-
-        /**
-         * If [AUTO_HIDE] is set, the number of milliseconds to wait after
-         * user interaction before hiding the system UI.
-         */
-        private val AUTO_HIDE_DELAY_MILLIS = 3000
-
-        /**
-         * Some older devices needs a small delay between UI widget updates
-         * and a change of the status and navigation bar.
-         */
-        private val UI_ANIMATION_DELAY = 300
-    }
+    /**
+     * Some older devices needs a small delay between UI widget updates
+     * and a change of the status and navigation bar.
+     */
+    private val UI_ANIMATION_DELAY = 300
+  }
 }
