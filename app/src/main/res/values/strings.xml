@@ -15,8 +15,11 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Galdera Textua</string>
-    <string name="pref_default_display_name">Zer moduzkoa izanda gaur jaso duzun arreta?</string>
+    <string name="pref_title_galdera_eus">Galdera Textua</string>
+    <string name="pref_default_galdera_eus">Zer moduzkoa izanda gaur jaso duzun arreta?</string>
+
+    <string name="pref_title_galdera_es">Texto pregunta</string>
+    <string name="pref_default_galdera_es">¿Qué tal ha sido la atención que has revibido hoy?</string>
 
     <string name="pref_title_server_url">Zerbitzari url</string>
     <string name="pref_default_zerbitzari_url">http://localhost:3000/api/satisfaction</string>

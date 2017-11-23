@@ -4,14 +4,20 @@
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
-        android:capitalize="words"
-        android:defaultValue="@string/pref_default_display_name"
-        android:inputType="textCapWords"
-        android:key="example_text"
+        android:defaultValue="@string/pref_default_galdera_eus"
+        android:key="galdera_eus"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/pref_title_display_name" />
+        android:title="@string/pref_title_galdera_eus" />
+
+  <EditTextPreference
+        android:defaultValue="@string/pref_default_galdera_es"
+        android:key="galdera_es"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_galdera_es" />
 
     <EditTextPreference
         android:defaultValue="@string/pref_default_zerbitzari_url"

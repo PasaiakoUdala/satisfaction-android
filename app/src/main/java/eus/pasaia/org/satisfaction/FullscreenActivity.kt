@@ -1,27 +1,18 @@
 package eus.pasaia.org.satisfaction
 
-import android.app.PendingIntent.getActivity
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Toast
-import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.content.Intent
-import android.preference.PreferenceManager
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.widget.TextView
 import eus.pasaia.org.satisfaction.data.model.Satisfaction
-import eus.pasaia.org.satisfaction.data.model.remote.ApiUtils
-import org.w3c.dom.Text
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import eus.pasaia.org.satisfaction.data.model.remote.APIService
+import eus.pasaia.org.satisfaction.data.model.remote.ApiUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,20 +53,23 @@ class FullscreenActivity : AppCompatActivity() {
     val SP = PreferenceManager.getDefaultSharedPreferences(baseContext)
     val strKokalekua = SP.getString("kokalekua", "NA")
     val strServer_url = SP.getString("server_url", "NA")
-    val strGaldera = SP.getString("example_text", "NA")
+    val strGalderaeus = SP.getString("galdera_eus", "NA")
+    val strGalderaes = SP.getString("galdera_es", "NA")
+    val strSaila = SP.getString("saila", "NA")
 
-    var txt = findViewById<TextView>(R.id.txtGaldera) as TextView
-    txt.setText(strGaldera)
+    var txtEus = findViewById<TextView>(R.id.txtGalderaeus) as TextView
+    var txtEs = findViewById<TextView>(R.id.txtGalderaes) as TextView
+    txtEus.text = strGalderaeus
+    txtEs.text = strGalderaes
 
     var mAPIService = ApiUtils.getAPIService()
 
-    fun sendSatisfaction(galdera: String, emaitza: Int, saila: String, kokalekua: String) {
+    fun sendSatisfaction(galderaeus: String, galderaes: String, emaitza: Int, saila: String, kokalekua: String) {
       if (mAPIService != null) {
-        mAPIService.saveSatisfaction(galdera, emaitza, saila, kokalekua).enqueue(object : Callback<Satisfaction> {
+        mAPIService.saveSatisfaction(galderaeus, galderaes, emaitza, saila, kokalekua).enqueue(object : Callback<Satisfaction> {
           override fun onResponse(call: Call<Satisfaction>, response: Response<Satisfaction>) {
 
             if (response.isSuccessful()) {
-
               Log.i("IKER", "post submitted to API." + response.body().toString())
             }
 
@@ -88,12 +82,9 @@ class FullscreenActivity : AppCompatActivity() {
       }
     }
 
-    fun showResponse(response: String) {
-      Log.d("IKER", response)
-    }
     var btnOk = findViewById<ImageButton>(R.id.imgOk) as ImageButton
     btnOk.setOnClickListener {
-      sendSatisfaction("AA",2,"KK","kk")
+      sendSatisfaction(strGalderaeus, strGalderaes, 1, strSaila, strKokalekua)
       Log.d("IKER", "Xieeee")
     }
 

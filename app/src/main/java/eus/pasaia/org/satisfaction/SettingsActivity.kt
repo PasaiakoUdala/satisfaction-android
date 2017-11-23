@@ -81,9 +81,11 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"))
+            bindPreferenceSummaryToValue(findPreference("galdera_eus"))
+            bindPreferenceSummaryToValue(findPreference("galdera_es"))
             bindPreferenceSummaryToValue(findPreference("server_url"))
             bindPreferenceSummaryToValue(findPreference("kokalekua"))
+            bindPreferenceSummaryToValue(findPreference("saila"))
 
         }
 

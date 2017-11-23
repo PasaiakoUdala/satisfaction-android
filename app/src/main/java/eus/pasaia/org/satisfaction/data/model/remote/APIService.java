@@ -10,7 +10,8 @@ public interface APIService {
   @POST("/satisfaction")
   @FormUrlEncoded
   Call<Satisfaction> saveSatisfaction(
-    @Field("galdera") String galdera,
+    @Field("galderaeus") String galderaeus,
+    @Field("galderaes") String galderaes,
     @Field("emaitza") Integer emaitza,
     @Field("saila") String saila,
     @Field("kokalekua") String kokalekua
