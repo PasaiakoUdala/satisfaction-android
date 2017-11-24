@@ -32,4 +32,6 @@
   <string name="pref_default_saila">Saila</string>
 
   <string name="title_success">Ongi</string>
+  <string name="action_settings">Menua</string>
+  <string name="title_akatsa">Akatsa</string>
 </resources>

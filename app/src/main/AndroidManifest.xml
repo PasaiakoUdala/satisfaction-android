@@ -30,8 +30,10 @@
     <activity
       android:name=".SuccessActivity"
       android:label="@string/title_success"
-      android:screenOrientation="landscape"
-      ></activity>
+      android:screenOrientation="landscape" />
+    <activity android:name=".AkatsaActivity"
+      android:label="@string/title_akatsa"
+      android:screenOrientation="landscape" />
   </application>
 
 </manifest>

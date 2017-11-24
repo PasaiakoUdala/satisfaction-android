@@ -17,7 +17,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.support.v4.content.ContextCompat.startActivity
-
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 
@@ -84,6 +85,8 @@ class FullscreenActivity : AppCompatActivity() {
 
           override fun onFailure(call: Call<Satisfaction>, t: Throwable) {
             Log.e("IKER", "Unable to submit post to API.")
+            val mainIntentAkatsa = Intent(this@FullscreenActivity, AkatsaActivity::class.java)
+            startActivity(mainIntentAkatsa)
           }
         })
       }
@@ -107,11 +110,6 @@ class FullscreenActivity : AppCompatActivity() {
       Log.d("IKER", "Xieeee")
     }
 
-    var btnSettings = findViewById<Button>(R.id.cmdSettings) as Button
-    btnSettings.setOnClickListener {
-      startActivity(Intent(this@FullscreenActivity, SettingsActivity::class.java))
-    }
-
   }
 
   override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -121,6 +119,24 @@ class FullscreenActivity : AppCompatActivity() {
     // created, to briefly hint to the user that UI controls
     // are available.
     delayedHide(100)
+  }
+
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    val id = item.getItemId()
+
+    if (id == R.id.action_settings) {
+      // launch settings activity
+      startActivity(Intent(this@FullscreenActivity, SettingsActivity::class.java))
+      return true
+    }
+
+    return super.onOptionsItemSelected(item)
   }
 
   private fun toggle() {
