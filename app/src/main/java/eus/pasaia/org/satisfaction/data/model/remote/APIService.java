@@ -14,6 +14,6 @@ public interface APIService {
     @Field("galderaes") String galderaes,
     @Field("emaitza") Integer emaitza,
     @Field("saila") String saila,
-    @Field("kokalekua") String kokalekua
+    @Field("kokapena") String kokapena
   );
 }

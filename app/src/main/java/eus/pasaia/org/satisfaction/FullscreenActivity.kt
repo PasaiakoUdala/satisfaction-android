@@ -70,9 +70,9 @@ class FullscreenActivity : AppCompatActivity() {
 
 
 
-    fun sendSatisfaction(galderaeus: String, galderaes: String, emaitza: Int, saila: String, kokalekua: String) {
+    fun sendSatisfaction(galderaeus: String, galderaes: String, emaitza: Int, saila: String, kokapena: String) {
       if (mAPIService != null) {
-        mAPIService.saveSatisfaction(galderaeus, galderaes, emaitza, saila, kokalekua).enqueue(object : Callback<Satisfaction> {
+        mAPIService.saveSatisfaction(galderaeus, galderaes, emaitza, saila, kokapena).enqueue(object : Callback<Satisfaction> {
           override fun onResponse(call: Call<Satisfaction>, response: Response<Satisfaction>) {
 
             if (response.isSuccessful()) {
@@ -149,8 +149,8 @@ class FullscreenActivity : AppCompatActivity() {
 
   private fun hide() {
     // Hide UI first
-    supportActionBar?.hide()
-//        fullscreen_content_controls.visibility = View.GONE
+//    supportActionBar?.hide()
+//    fullscreen_content_controls.visibility = View.GONE
     mVisible = false
 
     // Schedule a runnable to remove the status and navigation bar after a delay
